@@ -40,6 +40,13 @@ class Settings(BaseSettings):
     # ---- Reliability ----
     max_validation_retries: int = 2       # repair attempts on malformed JSON
     routes_per_trip: int = 3              # generated one-at-a-time, then assembled
+    
+    # ---- Hotel data provider ----
+    hotel_provider: str = "booking"              # "booking" | "amadeus" | "" (off, use web)
+    rapidapi_key: str = "95dfd065a4msh5862f1c2bba9bf3p14e1d5jsn1955b549b104"
+    rapidapi_booking_host: str = "booking-com15.p.rapidapi.com"
+    amadeus_client_id: str = ""
+    amadeus_client_secret: str = ""
 
 
 @lru_cache
