@@ -9,6 +9,7 @@ from app.services.llm_factory import build_llm
 from app.tools.web_search import web_search
 from app.tools.aurelia_backend import hotel_availability
 from app.tools.hotel_search import hotel_search
+from app.tools.weather import weather_forecast
 
 
 def _enabled_tools():
@@ -21,6 +22,7 @@ def _enabled_tools():
         tools.append(hotel_search)
     if s.enable_aurelia_backend:
         tools.append(hotel_availability)
+    tools.append(weather_forecast)  # always on; keyless and free
     return tools
 
 
