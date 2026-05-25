@@ -22,6 +22,7 @@ def collect_request() -> TripRequest:
         budget=input("💰 Hotel budget/night for the WHOLE GROUP? (e.g., $100 total): "),
         transport=input("🚗 Transport? (e.g., driving own car): "),
         trip_description=input("📝 Describe your dream trip: "),
+        weather_preference=input("🌦️  Any weather preferences? (e.g., avoid rain, prefer cool; or leave blank): "),
     )
 
 
@@ -45,7 +46,10 @@ def print_itinerary(plan, req: TripRequest):
                 print(f"         - {act}")
             print(f"      🏨 Night Stay: {day.hotel_name}")
             print(f"      🛏️  Room Setup: {day.room_configuration}")
-            print(f"      💰 Total Cost: {day.hotel_price}\n")
+            print(f"      💰 Total Cost: {day.hotel_price}")
+            if day.weather:
+                print(f"      🌦️  Weather: {day.weather}")
+            print()
 
 
 def main():

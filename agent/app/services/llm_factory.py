@@ -31,4 +31,11 @@ def build_llm() -> LLM:
             temperature=s.llm_temperature,
         )
 
+    if s.llm_provider == "groq":
+        return LLM(
+            model=s.llm_model,          # e.g. "groq/llama-3.3-70b-versatile"
+            api_key=s.groq_api_key,
+            temperature=s.llm_temperature,
+        )
+
     raise ValueError(f"Unknown LLM provider: {s.llm_provider}")

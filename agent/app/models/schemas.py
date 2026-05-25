@@ -18,6 +18,7 @@ class DailyPlan(BaseModel):
     hotel_name: str = Field(description="Name of the recommended hotel for this night")
     room_configuration: str = Field(description="Room setup for the group size, e.g. '1 Family Suite'")
     hotel_price: str = Field(description="Estimated price per night for the whole group")
+    weather: str = Field(default="", description="Weather forecast for this day's stop, e.g. 'partly cloudy, 24-31C, rain 20%'")
 
 
 class RouteOption(BaseModel):
@@ -45,3 +46,5 @@ class TripRequest(BaseModel):
     budget: str = Field(examples=["$100 total per night"])
     transport: str = Field(examples=["driving own car"])
     trip_description: str = Field(examples=["A scenic family road trip with cultural stops"])
+    weather_preference: str = Field(default="", description="Any weather preferences/constraints, e.g. 'avoid rainy beach days, prefer cool weather'", examples=["prefer dry weather for outdoor activities"])
+    amenities: List[str] = Field(default_factory=list, description="Must-have hotel amenities, e.g. ['Free WiFi', 'Pool']", examples=[["Free WiFi", "Breakfast"]])
