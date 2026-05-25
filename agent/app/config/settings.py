@@ -7,6 +7,7 @@ Swapping the LLM from local to cloud is a one-line .env change:
     LLM_PROVIDER=ollama   -> runs llama/qwen/mistral on your PC
     LLM_PROVIDER=openai   -> runs a cheap hosted model
     LLM_PROVIDER=gemini   -> runs Gemini Flash
+    LLM_PROVIDER=groq     -> runs Llama 3.3 70B on Groq (fast, free tier)
 """
 from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -25,6 +26,7 @@ class Settings(BaseSettings):
     # API keys (only needed for cloud providers; safe to leave blank for ollama)
     openai_api_key: str = ""
     gemini_api_key: str = ""
+    groq_api_key: str = ""
 
     # ---- Grounding sources ----
     # Toggle each data source on/off without touching code.
@@ -37,16 +39,16 @@ class Settings(BaseSettings):
 
     google_maps_api_key: str = ""
 
-    # ---- Reliability ----
-    max_validation_retries: int = 2       # repair attempts on malformed JSON
-    routes_per_trip: int = 3              # generated one-at-a-time, then assembled
-    
     # ---- Hotel data provider ----
-    hotel_provider: str = "booking"              # "booking" | "amadeus" | "" (off, use web)
-    rapidapi_key: str = "95dfd065a4msh5862f1c2bba9bf3p14e1d5jsn1955b549b104"
+    hotel_provider: str = ""              # booking | amadeus | "" (off -> web fallback)
+    rapidapi_key: str = ""
     rapidapi_booking_host: str = "booking-com15.p.rapidapi.com"
     amadeus_client_id: str = ""
     amadeus_client_secret: str = ""
+
+    # ---- Reliability ----
+    max_validation_retries: int = 2       # repair attempts on malformed JSON
+    routes_per_trip: int = 3              # generated one-at-a-time, then assembled
 
 
 @lru_cache
