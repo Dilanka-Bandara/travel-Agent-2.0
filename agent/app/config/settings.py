@@ -35,7 +35,14 @@ class Settings(BaseSettings):
     enable_maps_api: bool = False
 
     aurelia_base_url: str = "http://localhost:5000"
-    aurelia_api_key: str = ""
+    aurelia_api_key: str = ""             # shared secret sent TO aurelia (/api/hotels/availability)
+
+    # ---- Inbound API security ----
+    # Shared secret the aurelia Node backend must send as "X-Agent-Key".
+    # Leave blank only for local testing.
+    agent_api_key: str = ""
+    # Comma-separated origins allowed by CORS.
+    cors_origins: str = "http://localhost:5000,http://localhost:5173"
 
     google_maps_api_key: str = ""
 

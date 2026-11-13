@@ -47,4 +47,5 @@ class TripRequest(BaseModel):
     transport: str = Field(examples=["driving own car"])
     trip_description: str = Field(examples=["A scenic family road trip with cultural stops"])
     weather_preference: str = Field(default="", description="Any weather preferences/constraints, e.g. 'avoid rainy beach days, prefer cool weather'", examples=["prefer dry weather for outdoor activities"])
+    rooms: int = Field(default=0, ge=0, le=20, description="Number of hotel rooms the group needs (0 = let the agent decide)", examples=[2])
     amenities: List[str] = Field(default_factory=list, description="Must-have hotel amenities, e.g. ['Free WiFi', 'Pool']", examples=[["Free WiFi", "Breakfast"]])

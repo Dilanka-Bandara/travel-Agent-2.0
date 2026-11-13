@@ -18,6 +18,11 @@ def build_single_route_task(req: TripRequest, theme: str, agent) -> Task:
         if req.amenities else
         "- Must-have hotel amenities: none specified"
     )
+    rooms_line = (
+        f"- Rooms required: exactly {req.rooms} room(s) per night for the whole group"
+        if req.rooms else
+        "- Rooms required: choose a sensible setup for the group"
+    )
     return Task(
         description=f"""
 Plan ONE complete travel route for this trip, themed: "{theme}".
@@ -27,6 +32,7 @@ Trip details:
 - Duration: {req.duration} days, by {req.transport}
 - Starts: {req.start_date}
 - Group: {req.travelers}
+{rooms_line}
 - Budget: {req.budget} per night (whole group)
 - Vibe: "{req.vibe}"
 - Request: "{req.trip_description}"
@@ -46,8 +52,10 @@ Steps:
    activities; if hot and clear, outdoor activities are fine. If the traveler
    stated a weather preference, RESPECT IT when choosing stops and activities.
 4. For EACH day, pick 2-3 activities matching the vibe AND the weather.
-5. For EACH overnight town, recommend ONE real hotel using the Hotel Search
-   tool. Suggest a room configuration that fits {req.travelers}
+5. For EACH overnight town, recommend ONE real hotel. If the "Hotel Availability
+   Lookup" tool is available, call it FIRST (these hotels are bookable on Aurelia
+   Travel) and use the exact hotel name it returns. Only if it finds nothing, use
+   the Hotel Search tool or web search. Suggest a room configuration that fits {req.travelers}
    (e.g. "1 Family Suite", "2 Double Rooms"). If must-have amenities were
    specified, prefer hotels that offer them and mention the amenities in the
    room configuration text.
